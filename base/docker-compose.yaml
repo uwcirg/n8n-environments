@@ -83,8 +83,6 @@ services:
   n8n:
     <<: *service-n8n
     restart: unless-stopped
-    expose:
-      - 5678
     volumes:
       - n8n_storage:/home/node/.n8n
       - ./n8n/demo-data:/demo-data
@@ -101,8 +99,6 @@ services:
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.tls=true
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-
-      # - traefik.http.services.n8n-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=5678
     networks:
       - ingress
       - demo
