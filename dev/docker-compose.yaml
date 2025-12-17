@@ -14,10 +14,16 @@ services:
     extends:
       file: ../base/docker-compose.yaml
       service: n8n-import
+    env_file:
+      - path: .env
+        required: true
   n8n:
     extends:
       file: ../base/docker-compose.yaml
       service: n8n
+    env_file:
+      - path: .env
+        required: true
   qdrant:
     extends:
       file: ../base/docker-compose.yaml
