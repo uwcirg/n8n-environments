@@ -27,9 +27,7 @@ x-n8n: &service-n8n
     - OLLAMA_HOST=${OLLAMA_HOST:-http://ollama:11434}
 
     - WEBHOOK_URL=https://n8n.cirg.uw.edu
-    - N8N_PROXY_HOPS=1
     - N8N_LISTEN_ADDRESS=0.0.0.0
-    - N8N_PROTOCOL=https
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
