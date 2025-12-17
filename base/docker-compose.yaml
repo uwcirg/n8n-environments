@@ -34,7 +34,6 @@ x-n8n: &service-n8n
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
-  container_name: ollama
   networks: ['demo']
   restart: unless-stopped
   volumes:
@@ -43,7 +42,6 @@ x-ollama: &service-ollama
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
   networks: ['demo']
-  container_name: ollama-pull-llama
   volumes:
     - ollama_storage:/root/.ollama
   entrypoint: /bin/sh
@@ -56,7 +54,6 @@ x-init-ollama: &init-ollama
 services:
   postgres:
     image: postgres:17
-    hostname: postgres
     networks: ['demo']
     restart: unless-stopped
     environment:
@@ -73,8 +70,6 @@ services:
 
   n8n-import:
     <<: *service-n8n
-    hostname: n8n-import
-    container_name: n8n-import
     entrypoint: /bin/sh
     command:
       - "-c"
@@ -87,8 +82,6 @@ services:
 
   n8n:
     <<: *service-n8n
-    # hostname: n8n
-    # container_name: n8n
     restart: unless-stopped
     expose:
       - 5678
@@ -118,8 +111,6 @@ services:
 
   qdrant:
     image: qdrant/qdrant
-    hostname: qdrant
-    container_name: qdrant
     networks: ['demo']
     restart: unless-stopped
     volumes:
