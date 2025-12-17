@@ -53,8 +53,8 @@ x-init-ollama: &init-ollama
   environment:
     - OLLAMA_HOST=http://ollama:11434
   command:
-    - "-c"
-    - "sleep 3; ollama pull llama3.2"
+    - -c
+    - sleep 3; ollama pull llama3.2
 
 services:
   postgres:
@@ -69,7 +69,9 @@ services:
     volumes:
       - postgres_storage:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      test:
+        - CMD-SHELL
+        - pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       interval: 5s
       timeout: 5s
       retries: 10
@@ -78,8 +80,8 @@ services:
     <<: *service-n8n
     entrypoint: /bin/sh
     command:
-      - "-c"
-      - "n8n import:credentials --separate --input=/demo-data/credentials && n8n import:workflow --separate --input=/demo-data/workflows"
+      - -c
+      - n8n import:credentials --separate --input=/demo-data/credentials && n8n import:workflow --separate --input=/demo-data/workflows
     volumes:
       - ./n8n/demo-data:/demo-data
     depends_on:
@@ -120,11 +122,13 @@ services:
       - qdrant_storage:/qdrant/storage
 
   ollama-cpu:
-    profiles: ["cpu"]
+    profiles:
+      - cpu
     <<: *service-ollama
 
   ollama-gpu:
-    profiles: ["gpu-nvidia"]
+    profiles:
+      - gpu-nvidia
     <<: *service-ollama
     deploy:
       resources:
@@ -132,30 +136,35 @@ services:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu]
+              capabilities:
+                - gpu
 
   ollama-gpu-amd:
-    profiles: ["gpu-amd"]
+    profiles:
+      - gpu-amd
     <<: *service-ollama
     image: ollama/ollama:rocm
     devices:
-      - "/dev/kfd"
-      - "/dev/dri"
+      - /dev/kfd
+      - /dev/dri
 
   ollama-pull-llama-cpu:
-    profiles: ["cpu"]
+    profiles:
+      - cpu
     <<: *init-ollama
     depends_on:
       - ollama-cpu
 
   ollama-pull-llama-gpu:
-    profiles: ["gpu-nvidia"]
+    profiles:
+      - gpu-nvidia
     <<: *init-ollama
     depends_on:
       - ollama-gpu
 
   ollama-pull-llama-gpu-amd:
-    profiles: [gpu-amd]
+    profiles:
+      - gpu-amd
     <<: *init-ollama
     image: ollama/ollama:rocm
     depends_on:
