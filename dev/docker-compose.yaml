@@ -1,0 +1,48 @@
+volumes:
+  n8n_storage:
+  postgres_storage:
+  ollama_storage:
+  qdrant_storage:
+networks:
+  demo:
+services:
+  postgres:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: postgres
+  n8n-import:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: n8n-import
+  n8n:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: n8n
+  qdrant:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: qdrant
+  ollama-cpu:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-cpu
+  ollama-gpu:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-gpu
+  ollama-gpu-amd:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-gpu-amd
+  ollama-pull-llama-cpu:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-pull-llama-cpu
+  ollama-pull-llama-gpu:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-pull-llama-gpu
+  ollama-pull-llama-gpu-amd:
+    extends:
+      file: ../base/docker-compose.yaml
+      service: ollama-pull-llama-gpu-amd
