@@ -4,7 +4,7 @@ volumes:
   ollama_storage:
   qdrant_storage:
 networks:
-  demo:
+  internal:
   # ingress network
   ingress:
     external: true

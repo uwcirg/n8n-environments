@@ -5,7 +5,7 @@ volumes:
   qdrant_storage:
 
 networks:
-  demo:
+  internal:
   # ingress network
   ingress:
     external: true
@@ -14,7 +14,7 @@ networks:
 x-n8n: &service-n8n
   image: n8nio/n8n:latest
   networks:
-    - demo
+    - internal
   environment:
     - DB_TYPE=postgresdb
     - DB_POSTGRESDB_HOST=postgres
@@ -36,7 +36,7 @@ x-n8n: &service-n8n
 x-ollama: &service-ollama
   image: ollama/ollama:latest
   networks:
-    demo:
+    internal:
       aliases:
         - ollama
   restart: unless-stopped
@@ -46,7 +46,7 @@ x-ollama: &service-ollama
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
   networks:
-    - demo
+    - internal
   volumes:
     - ollama_storage:/root/.ollama
   entrypoint: /bin/sh
@@ -60,7 +60,7 @@ services:
   postgres:
     image: postgres:17
     networks:
-      - demo
+      - internal
     restart: unless-stopped
     environment:
       - POSTGRES_USER
@@ -109,14 +109,14 @@ services:
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
     networks:
       - ingress
-      - demo
+      - internal
       - default
 
 
   qdrant:
     image: qdrant/qdrant
     networks:
-      - demo
+      - internal
     restart: unless-stopped
     volumes:
       - qdrant_storage:/qdrant/storage
