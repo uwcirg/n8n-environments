@@ -36,7 +36,9 @@ x-n8n: &service-n8n
 x-ollama: &service-ollama
   image: ollama/ollama:latest
   networks:
-    - demo
+    demo:
+      aliases:
+        - ollama
   restart: unless-stopped
   volumes:
     - ollama_storage:/root/.ollama
