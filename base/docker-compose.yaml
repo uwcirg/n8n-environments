@@ -13,7 +13,8 @@ networks:
 
 x-n8n: &service-n8n
   image: n8nio/n8n:latest
-  networks: ['demo']
+  networks:
+    - demo
   environment:
     - DB_TYPE=postgresdb
     - DB_POSTGRESDB_HOST=postgres
@@ -34,14 +35,16 @@ x-n8n: &service-n8n
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
-  networks: ['demo']
+  networks:
+    - demo
   restart: unless-stopped
   volumes:
     - ollama_storage:/root/.ollama
 
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
-  networks: ['demo']
+  networks:
+    - demo
   volumes:
     - ollama_storage:/root/.ollama
   entrypoint: /bin/sh
@@ -54,7 +57,8 @@ x-init-ollama: &init-ollama
 services:
   postgres:
     image: postgres:17
-    networks: ['demo']
+    networks:
+      - demo
     restart: unless-stopped
     environment:
       - POSTGRES_USER
@@ -107,7 +111,8 @@ services:
 
   qdrant:
     image: qdrant/qdrant
-    networks: ['demo']
+    networks:
+      - demo
     restart: unless-stopped
     volumes:
       - qdrant_storage:/qdrant/storage
