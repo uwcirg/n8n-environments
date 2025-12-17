@@ -5,6 +5,10 @@ volumes:
   qdrant_storage:
 networks:
   demo:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
 services:
   postgres:
     extends:
