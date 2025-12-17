@@ -18,8 +18,8 @@ x-n8n: &service-n8n
   environment:
     DB_TYPE: postgresdb
     DB_POSTGRESDB_HOST: postgres
-    DB_POSTGRESDB_USER: ${POSTGRES_USER}
-    DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+    DB_POSTGRESDB_USER: postgres
+    DB_POSTGRESDB_PASSWORD: password
     N8N_DIAGNOSTICS_ENABLED: false
     N8N_PERSONALIZATION_ENABLED: false
     OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
@@ -65,7 +65,7 @@ services:
     healthcheck:
       test:
         - CMD-SHELL
-        - pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+        - pg_isready -h localhost -U postgres -d n8n
       interval: 5s
       timeout: 5s
       retries: 10
