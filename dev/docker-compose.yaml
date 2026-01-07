@@ -28,6 +28,8 @@ services:
     env_file:
       - path: n8n.env
         required: true
+    volumes:
+      - ./shared:/home/node/.n8n-files
   qdrant:
     extends:
       file: ../base/docker-compose.yaml
