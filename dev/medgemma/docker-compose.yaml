@@ -14,7 +14,7 @@ services:
       - traefik.http.routers.medgemma-openapi.priority=100
 
       # require Bearer token for all other endpoints
-      - traefik.http.routers.medgemma-secure.rule=Host(`${MEDGEMMA_DOMAIN}`) && PathPrefix(`/`) && !Path(`/openapi.json`) && HeadersRegexp(`Authorization`, `^Bearer ${OAI_API_KEY}$`)
+      - traefik.http.routers.medgemma-secure.rule=Host(`${MEDGEMMA_DOMAIN}`) && PathPrefix(`/`) && !Path(`/openapi.json`) && Header(`Authorization`, `Bearer ${OAI_API_KEY}`)
       - traefik.http.routers.medgemma-secure.entrypoints=websecure
       - traefik.http.routers.medgemma-secure.tls=true
       - traefik.http.routers.medgemma-secure.tls.certresolver=letsencrypt
