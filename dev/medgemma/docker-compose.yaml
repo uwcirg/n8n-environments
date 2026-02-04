@@ -5,16 +5,23 @@ services:
       service: medgemma
     labels:
       - traefik.enable=true
-      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.rule=Host(`${MEDGEMMA_DOMAIN}`)
-      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
-      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.tls=true
-      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.middlewares=medgemma-bearer@docker
+
+      # Router for /openapi.json (no auth)
+      - traefik.http.routers.medgemma-openapi.rule=Host(`${MEDGEMMA_DOMAIN}`) && Path(`/openapi.json`)
+      - traefik.http.routers.medgemma-openapi.entrypoints=websecure
+      - traefik.http.routers.medgemma-openapi.tls=true
+      - traefik.http.routers.medgemma-openapi.tls.certresolver=letsencrypt
+
+      # Router for all other paths (requires Bearer token)
+      - traefik.http.routers.medgemma-secure.rule=Host(`${MEDGEMMA_DOMAIN}`) && PathPrefix(`/`)
+      - traefik.http.routers.medgemma-secure.entrypoints=websecure
+      - traefik.http.routers.medgemma-secure.tls=true
+      - traefik.http.routers.medgemma-secure.tls.certresolver=letsencrypt
+      - traefik.http.routers.medgemma-secure.middlewares=medgemma-bearer@docker
 
       # Middleware to enforce Bearer token
       - traefik.http.middlewares.medgemma-bearer.headers.customrequestheaders.Authorization=Bearer ${OAI_API_KEY}
       - traefik.http.middlewares.medgemma-bearer.headers.customResponseHeaders.Access-Control-Allow-Origin=*
-      - traefik.http.middlewares.medgemma-bearer.headers.customRequestHeaders.Authorization=Bearer ${OAI_API_KEY}
       - traefik.http.middlewares.medgemma-bearer.headers.headerRegexp.Authorization=^Bearer ${OAI_API_KEY}$
       - traefik.http.middlewares.medgemma-bearer.headers.requireHeader.Authorization=true
     networks:
