@@ -12,7 +12,7 @@ networks:
     name: external_web
 
 x-n8n: &service-n8n
-  image: n8nio/n8n:${N8N_IMAGE_TAG:-2.0.3}
+  image: ghcr.io/uwcirg/n8n-builder:main
   networks:
     - internal
   environment:
