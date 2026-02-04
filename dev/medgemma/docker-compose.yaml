@@ -1,0 +1,22 @@
+services:
+  medgemma:
+    extends:
+      file: ../base/medgemma/docker-compose.yaml
+      service: medgemma
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.rule=Host(`medgemma.${BASE_DOMAIN}`)
+      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
+      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.tls=true
+      - traefik.http.routers.medgemma-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
+
+volumes:
+  hf-cache:
+  vllm-models:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web

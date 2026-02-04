@@ -1,0 +1,47 @@
+services:
+  medgemma:
+    image: vllm/vllm-openai:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities:
+#                - gpu
+
+    volumes:
+      - hf-cache:/root/.huggingface
+      - vllm-models:/models
+
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HUGGING_FACE_HUB_TOKEN}
+
+    # ports:
+      # - "8000:8000"
+
+    command: >
+      --model google/medgemma-1.5-4b-it
+      --dtype bfloat16
+      --max-model-len 8192
+      --gpu-memory-utilization 0.90
+
+
+volumes:
+  hf-cache:
+  vllm-models:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
