@@ -1,22 +1,7 @@
 services:
   medgemma:
     image: vllm/vllm-openai:latest
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-#    deploy:
-#      resources:
-#        reservations:
-#          devices:
-#            - driver: nvidia
-#              count: 1
-#              capabilities:
-#                - gpu
+    gpus: all
 
     volumes:
       - hf-cache:/root/.huggingface
