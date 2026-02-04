@@ -6,13 +6,10 @@ services:
     volumes:
       - hf-cache:/root/.huggingface
       - vllm-models:/models
-
+    expose:
+      - 8000
     environment:
       HUGGING_FACE_HUB_TOKEN: ${HUGGING_FACE_HUB_TOKEN}
-
-    # ports:
-      # - "8000:8000"
-
     command: >
       --model google/medgemma-1.5-4b-it
       --dtype bfloat16
