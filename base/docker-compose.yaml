@@ -26,6 +26,9 @@ x-n8n: &service-n8n
     WEBHOOK_URL: https://n8n.${BASE_DOMAIN}
     N8N_LISTEN_ADDRESS: 0.0.0.0
 
+    # TODO: Also need to `npm install pdf-lib`
+    NODE_FUNCTION_ALLOW_EXTERNAL: pdf-lib
+
     # disable telemetry etc
     N8N_DIAGNOSTICS_ENABLED: false
     N8N_VERSION_NOTIFICATIONS_ENABLED: false
