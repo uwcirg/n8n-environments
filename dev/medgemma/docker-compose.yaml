@@ -1,0 +1,34 @@
+services:
+  medgemma:
+    extends:
+      file: ../../base/medgemma/docker-compose.yaml
+      service: medgemma
+    labels:
+      - traefik.enable=true
+
+      # do not require auth for OpenAPI endpoint
+      - traefik.http.routers.medgemma-openapi.rule=Host(`${MEDGEMMA_DOMAIN}`) && Path(`/openapi.json`)
+      - traefik.http.routers.medgemma-openapi.entrypoints=websecure
+      - traefik.http.routers.medgemma-openapi.tls=true
+      - traefik.http.routers.medgemma-openapi.tls.certresolver=letsencrypt
+      - traefik.http.routers.medgemma-openapi.priority=100
+
+      # require Bearer token for all other endpoints
+      - traefik.http.routers.medgemma-secure.rule=Host(`${MEDGEMMA_DOMAIN}`) && PathPrefix(`/`) && !Path(`/openapi.json`) && Header(`Authorization`, `Bearer ${OAI_API_KEY}`)
+      - traefik.http.routers.medgemma-secure.entrypoints=websecure
+      - traefik.http.routers.medgemma-secure.tls=true
+      - traefik.http.routers.medgemma-secure.tls.certresolver=letsencrypt
+      - traefik.http.routers.medgemma-secure.priority=1
+    networks:
+      - ingress
+
+volumes:
+  hf-cache:
+  vllm-models:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web

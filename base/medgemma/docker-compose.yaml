@@ -1,0 +1,28 @@
+services:
+  medgemma:
+    image: vllm/vllm-openai:latest
+    gpus: all
+
+    volumes:
+      - hf-cache:/root/.huggingface
+      - vllm-models:/models
+    expose:
+      - 8000
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HUGGING_FACE_HUB_TOKEN}
+    command: >
+      --dtype bfloat16
+      --max-model-len 8192
+      --gpu-memory-utilization 0.90
+      google/medgemma-1.5-4b-it
+
+volumes:
+  hf-cache:
+  vllm-models:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
