@@ -2,6 +2,8 @@ services:
   medgemma:
     image: nvcr.io/nvidia/vllm:26.02-py3
     gpus: all
+    # increase /dev/shm shared memory size from default 64MB
+    shm_size: 8g
 
     volumes:
       - hf-cache:/root/.huggingface
