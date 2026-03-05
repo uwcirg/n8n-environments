@@ -11,7 +11,10 @@ networks:
 x-ollama: &service-ollama
   image: ollama/ollama:latest
   networks:
-    - ingress
+    ingress:
+    internal:
+      aliases:
+        - ollama-internal
   restart: unless-stopped
   volumes:
     - ollama_storage:/root/.ollama
@@ -38,7 +41,7 @@ x-init-ollama: &init-ollama
     - ollama_storage:/root/.ollama
   entrypoint: /bin/sh
   environment:
-    OLLAMA_HOST: http://ollama:11434
+    OLLAMA_HOST: http://ollama-internal:11434
   command:
     - -c
     - sleep 3; ollama pull llama3.2
