@@ -1,0 +1,33 @@
+volumes:
+  ollama_storage:
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
+services:
+  ollama-cpu:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-cpu
+  ollama-gpu:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-gpu
+  ollama-gpu-amd:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-gpu-amd
+  ollama-pull-llama-cpu:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-pull-llama-cpu
+  ollama-pull-llama-gpu:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-pull-llama-gpu
+  ollama-pull-llama-gpu-amd:
+    extends:
+      file: ../../base/ollama/docker-compose.yaml
+      service: ollama-pull-llama-gpu-amd
