@@ -11,12 +11,24 @@ networks:
 x-ollama: &service-ollama
   image: ollama/ollama:latest
   networks:
-    internal:
-      aliases:
-        - ollama
+    - ingress
   restart: unless-stopped
   volumes:
     - ollama_storage:/root/.ollama
+  labels:
+    - traefik.enable=true
+    # do not require auth for OpenAPI endpoint
+    - traefik.http.routers.ollama-openapi.rule=Host(`${OLLAMA_DOMAIN}`) && Path(`/openapi.json`)
+    - traefik.http.routers.ollama-openapi.entrypoints=websecure
+    - traefik.http.routers.ollama-openapi.tls=true
+    - traefik.http.routers.ollama-openapi.tls.certresolver=letsencrypt
+    - traefik.http.routers.ollama-openapi.priority=100
+    # require Bearer token for all other endpoints
+    - traefik.http.routers.ollama-secure.rule=Host(`${OLLAMA_DOMAIN}`) && PathPrefix(`/`) && !Path(`/openapi.json`) && Header(`Authorization`, `Bearer ${OLLAMA_API_KEY}`)
+    - traefik.http.routers.ollama-secure.entrypoints=websecure
+    - traefik.http.routers.ollama-secure.tls=true
+    - traefik.http.routers.ollama-secure.tls.certresolver=letsencrypt
+    - traefik.http.routers.ollama-secure.priority=1
 
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
