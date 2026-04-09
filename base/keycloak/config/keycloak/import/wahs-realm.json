@@ -944,25 +944,7 @@
   "enabledEventTypes": [],
   "adminEventsEnabled": false,
   "adminEventsDetailsEnabled": false,
-  "identityProviders": [
-    {
-      "alias": "google",
-      "internalId": "c89e7660-1b6f-4596-bbef-090d4dd31f74",
-      "providerId": "google",
-      "enabled": "${KEYCLOAK_GOOGLE_IDP_ENABLED}",
-      "updateProfileFirstLoginMode": "on",
-      "trustEmail": false,
-      "storeToken": false,
-      "addReadTokenRoleOnCreate": false,
-      "authenticateByDefault": false,
-      "linkOnly": false,
-      "firstBrokerLoginFlowAlias": "first broker login",
-      "config": {
-        "clientSecret": "${KEYCLOAK_GOOGLE_IDP_CLIENT_SECRET}",
-        "clientId": "${KEYCLOAK_GOOGLE_IDP_CLIENT_ID}"
-      }
-    }
-  ],
+  "identityProviders": [],
   "identityProviderMappers": [],
   "components": {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
