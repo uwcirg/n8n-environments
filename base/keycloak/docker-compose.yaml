@@ -1,0 +1,63 @@
+services:
+  db:
+    image: postgres:${POSTGRES_IMAGE_TAG:-17}
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - internal
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_IMAGE_TAG:-26.1}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.keycloak-${COMPOSE_PROJECT_NAME}.rule=Host(`keycloak.${BASE_DOMAIN}`)
+      - traefik.http.routers.keycloak-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
+      - traefik.http.routers.keycloak-${COMPOSE_PROJECT_NAME}.tls=true
+      - traefik.http.routers.keycloak-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
+    command:
+      # https://www.keycloak.org/server/importExport#_importing_a_realm_during_startup
+      # recent Keycloak releases do not allow importing the master realm on startup; use old properties as workaround
+      # https://github.com/keycloak/keycloak/issues/12544#issuecomment-1191846726
+      - -Dkeycloak.migration.action=import
+      - -Dkeycloak.migration.provider=dir
+      - -Dkeycloak.migration.dir=/opt/keycloak/data/import
+      - -Dkeycloak.migration.strategy=IGNORE_EXISTING
+      - -Dkeycloak.migration.replace-placeholders=true
+      - start
+      - --log-console-output=json
+    environment:
+      # https://www.keycloak.org/server/all-config
+      KC_DB: postgres
+      KC_DB_URL_HOST: db
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_URL_DATABASE: postgres
+
+      # https://www.keycloak.org/server/reverseproxy
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: xforwarded
+      # trust traefik Host headers
+      KC_HOSTNAME_STRICT: "false"
+
+      KEYCLOAK_ADMIN: admin
+
+      KEYCLOAK_SHL_CREATOR_BASE: https://${BASE_DOMAIN}
+      KEYCLOAK_SHL_CREATOR_LOGOUT_REDIRECT_URL: https://${BASE_DOMAIN}
+
+    volumes:
+      - ./config/keycloak/import/:/opt/keycloak/data/import:ro
+    depends_on:
+      - db
+    networks:
+      - ingress
+      - internal
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web

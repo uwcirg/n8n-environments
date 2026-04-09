@@ -1,0 +1,22 @@
+services:
+  db:
+    extends:
+      file: ../../base/keycloak/docker-compose.yaml
+      service: db
+  keycloak:
+    extends:
+      file: ../../base/keycloak/docker-compose.yaml
+      service: keycloak
+    environment:
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    env_file:
+      keycloak.env
+volumes:
+  db-data: {}
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
