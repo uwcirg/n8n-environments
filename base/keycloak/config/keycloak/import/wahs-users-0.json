@@ -1,0 +1,63 @@
+{
+  "realm": "wahs",
+  "users": [
+    {
+      "id": "wahs-test-user-1",
+      "createdTimestamp": 1709134971000,
+      "username": "test",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "firstName": "FirstName",
+      "lastName": "LastName",
+      "email": "test@test.test",
+      "credentials": [
+        {
+          "id": "wahs-test-user-1-password",
+          "type": "password",
+          "createdDate": 1709134971000,
+          "secretData": "{\"value\":\"7Vmr6+Io+gJJrH+EOcmOJXshJ0tMI5x0rQ1wkCYgSCA=\",\"salt\":\"LR0DSOi5850zn9tNFYS1uw==\",\"additionalParameters\":{}}",
+          "userLabel": "test user password is set to \"test\"",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-wahs",
+        "patient-realm-role"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "wahs-staff-user-1",
+      "createdTimestamp": 1709134971000,
+      "username": "staff",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "Staff",
+      "email": "stafftest@test.test",
+      "credentials": [
+        {
+          "id": "wahs-staff-user-1-password",
+          "type": "password",
+          "createdDate": 1709134971000,
+          "secretData" : "{\"value\":\"86AHPCF6rK9rndTfdST1Ijn4XQ6xC4/uoa3Q0S0O5nE=\",\"salt\":\"veo4rv2pmuiMhWcJgJmw7A==\",\"additionalParameters\":{}}",
+          "userLabel": "staff test user password is set to \"staff\"",
+          "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-wahs",
+        "staff-realm-role"
+      ],
+      "notBefore": 0,
+      "groups": []
+    }
+  ]
+}
