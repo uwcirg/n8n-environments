@@ -1,8 +1,8 @@
 {
-  "realm": "wahs",
+  "realm": "n8n",
   "users": [
     {
-      "id": "wahs-test-user-1",
+      "id": "n8n-test-user-1",
       "createdTimestamp": 1709134971000,
       "username": "test",
       "enabled": true,
@@ -13,7 +13,7 @@
       "email": "test@test.test",
       "credentials": [
         {
-          "id": "wahs-test-user-1-password",
+          "id": "n8n-test-user-1-password",
           "type": "password",
           "createdDate": 1709134971000,
           "secretData": "{\"value\":\"7Vmr6+Io+gJJrH+EOcmOJXshJ0tMI5x0rQ1wkCYgSCA=\",\"salt\":\"LR0DSOi5850zn9tNFYS1uw==\",\"additionalParameters\":{}}",
@@ -24,14 +24,14 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-wahs",
+        "default-roles-n8n",
         "patient-realm-role"
       ],
       "notBefore": 0,
       "groups": []
     },
     {
-      "id": "wahs-staff-user-1",
+      "id": "n8n-staff-user-1",
       "createdTimestamp": 1709134971000,
       "username": "staff",
       "enabled": true,
@@ -42,7 +42,7 @@
       "email": "stafftest@test.test",
       "credentials": [
         {
-          "id": "wahs-staff-user-1-password",
+          "id": "n8n-staff-user-1-password",
           "type": "password",
           "createdDate": 1709134971000,
           "secretData" : "{\"value\":\"86AHPCF6rK9rndTfdST1Ijn4XQ6xC4/uoa3Q0S0O5nE=\",\"salt\":\"veo4rv2pmuiMhWcJgJmw7A==\",\"additionalParameters\":{}}",
@@ -53,7 +53,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-wahs",
+        "default-roles-n8n",
         "staff-realm-role"
       ],
       "notBefore": 0,
