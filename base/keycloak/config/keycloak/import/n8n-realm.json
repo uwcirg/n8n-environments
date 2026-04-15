@@ -105,6 +105,70 @@
       ]
     }
   ],
+  "clients": [
+    {
+      "clientId": "n8n-dev",
+      "name": "",
+      "description": "",
+      "rootUrl": "https://n8n.cirg.washington.edu",
+      "adminUrl": "https://n8n.cirg.washington.edu",
+      "baseUrl": "https://n8n.cirg.washington.edu",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "qE1IxgYhWc92dMJXC2doiSkbsw9iy60p",
+      "redirectUris": [
+        "https://n8n.cirg.washington.edu/",
+        "https://n8n.cirg.washington.edu/rest/sso/oidc/callback"
+      ],
+      "webOrigins": [
+        "https://n8n.cirg.washington.edu"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1772676151",
+        "backchannel.logout.session.required": "true",
+        "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "n8n",
+        "roles",
+        "profile",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+      }
+    }
+  ],
   "clientScopes": [
     {
       "id": "f5943322-d81d-4f4a-8bb1-29d709fce927",
