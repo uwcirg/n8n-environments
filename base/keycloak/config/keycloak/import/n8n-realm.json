@@ -110,20 +110,20 @@
       "clientId": "n8n-dev",
       "name": "",
       "description": "",
-      "rootUrl": "https://n8n.cirg.washington.edu",
-      "adminUrl": "https://n8n.cirg.washington.edu",
-      "baseUrl": "https://n8n.cirg.washington.edu",
+      "rootUrl": "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu",
+      "adminUrl": "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu",
+      "baseUrl": "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "qE1IxgYhWc92dMJXC2doiSkbsw9iy60p",
       "redirectUris": [
-        "https://n8n.cirg.washington.edu/",
-        "https://n8n.cirg.washington.edu/rest/sso/oidc/callback"
+        "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu/",
+        "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu/rest/sso/oidc/callback"
       ],
       "webOrigins": [
-        "https://n8n.cirg.washington.edu"
+        "https://n8n.n8n.ubu.ivanc.dev.cirg.uw.edu"
       ],
       "notBefore": 0,
       "bearerOnly": false,
