@@ -34,6 +34,7 @@ services:
       KC_DB_URL_HOST: db
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
+      KC_DB_URL_DATABASE: postgres
 
       # https://www.keycloak.org/server/reverseproxy
       KC_HTTP_ENABLED: "true"
