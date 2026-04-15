@@ -1,6 +1,6 @@
 {
   "id": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
-  "realm": "test-realm",
+  "realm": "n8n",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -47,7 +47,7 @@
   "failureFactor": 30,
   "defaultRole": {
     "id": "fa691987-aaeb-4c06-afcc-bb21cdfa956b",
-    "name": "default-roles-test-realm",
+    "name": "default-roles-n8n",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
