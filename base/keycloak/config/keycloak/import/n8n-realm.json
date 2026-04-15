@@ -150,7 +150,6 @@
       "defaultClientScopes": [
         "web-origins",
         "acr",
-        "n8n",
         "roles",
         "profile",
         "basic",
