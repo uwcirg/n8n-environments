@@ -53,6 +53,64 @@
     "clientRole": false,
     "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f"
   },
+  "roles": {
+    "realm": [
+      {
+        "id": "a1b7c8d9-e0f1-42a3-b4c5-d6e7f8a9b0c1",
+        "name": "n8n-admin",
+        "description": "n8n instance admin; grants client role global:admin on n8n-instance-role (for OIDC n8n_instance_role)",
+        "composite": true,
+        "composites": {
+          "client": {
+            "n8n-instance-role": [
+              "global:admin"
+            ]
+          }
+        },
+        "clientRole": false,
+        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
+        "attributes": {}
+      },
+      {
+        "id": "b2c8d9e0-f1a2-43b4-c5d6-e7f8a9b0c1d2",
+        "name": "n8n-member",
+        "description": "n8n instance member; grants client role global:member on n8n-instance-role (for OIDC n8n_instance_role)",
+        "composite": true,
+        "composites": {
+          "client": {
+            "n8n-instance-role": [
+              "global:member"
+            ]
+          }
+        },
+        "clientRole": false,
+        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
+        "attributes": {}
+      }
+    ],
+    "client": {
+      "n8n-instance-role": [
+        {
+          "id": "8d5f3faf-9f42-5c7d-a02b-3e9f4d8c5b12",
+          "name": "global:admin",
+          "description": "Emitted as n8n_instance_role when scope n8n is requested (via realm role n8n-admin composite)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "7c4f2eae-8e31-4b6c-9f1a-2d8e3c7b4a01",
+          "attributes": {}
+        },
+        {
+          "id": "9e6a4b00-a053-6d8e-b13c-4f0a5e9d6c23",
+          "name": "global:member",
+          "description": "Emitted as n8n_instance_role when scope n8n is requested (via realm role n8n-member composite)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "7c4f2eae-8e31-4b6c-9f1a-2d8e3c7b4a01",
+          "attributes": {}
+        }
+      ]
+    }
+  },
   "requiredCredentials": [
     "password"
   ],
@@ -159,16 +217,81 @@
         "address",
         "phone",
         "offline_access",
-        "microprofile-jwt"
+        "microprofile-jwt",
+        "n8n"
       ],
       "access": {
         "view": true,
         "configure": true,
         "manage": true
       }
+    },
+    {
+      "id": "7c4f2eae-8e31-4b6c-9f1a-2d8e3c7b4a01",
+      "clientId": "n8n-instance-role",
+      "name": "n8n instance role (claim source)",
+      "description": "Bearer-only client: client roles global:admin / global:member are granted through realm role composites and mapped to OIDC claim n8n_instance_role by the n8n client scope.",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": true,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [],
+      "optionalClientScopes": []
     }
   ],
   "clientScopes": [
+    {
+      "id": "c3d9e0f1-a2b3-44c5-d6e7-f8a9b0c1d2e3",
+      "name": "n8n",
+      "description": "Dedicated scope for n8n instance claims (request with scope=n8n)",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "d4e0f1a2-b3c4-45d6-e7f8-a9b0c1d2e3f4",
+          "name": "n8n_instance_role",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "n8n_instance_role",
+            "jsonType.label": "String",
+            "multivalued": "false",
+            "usermodel.clientRoleMapping.clientId": "n8n-instance-role",
+            "usermodel.clientRoleMapping.rolePrefix": "",
+            "user.attribute": "foo"
+          }
+        }
+      ]
+    },
     {
       "id": "f5943322-d81d-4f4a-8bb1-29d709fce927",
       "name": "phone",
@@ -863,7 +986,8 @@
     "address",
     "phone",
     "microprofile-jwt",
-    "organization"
+    "organization",
+    "n8n"
   ],
   "browserSecurityHeaders": {
     "contentSecurityPolicyReportOnly": "",
