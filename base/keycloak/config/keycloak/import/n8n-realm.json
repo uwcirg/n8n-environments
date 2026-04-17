@@ -229,14 +229,14 @@
         "roles",
         "profile",
         "basic",
-        "email"
+        "email",
+        "n8n"
       ],
       "optionalClientScopes": [
         "address",
         "phone",
         "offline_access",
-        "microprofile-jwt",
-        "n8n"
+        "microprofile-jwt"
       ],
       "access": {
         "view": true,
@@ -282,7 +282,7 @@
     {
       "id": "c3d9e0f1-a2b3-44c5-d6e7-f8a9b0c1d2e3",
       "name": "n8n",
-      "description": "Dedicated scope for n8n instance claims (request with scope=n8n)",
+      "description": "Dedicated scope for n8n instance claims; assigned as a default client scope on n8n-dev so n8n_instance_role is emitted in ID and access tokens",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
