@@ -1695,7 +1695,7 @@
     {
       "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e01",
       "alias": "n8n-dev - required login role",
-      "description": "Conditional gate: deny access when the user lacks realm role n8n-dev-login (negated role check + Deny access). n8n-dev-login is granted only via n8n-admin or n8n-member composites. For other OIDC clients, duplicate this flow and point the condition at a dedicated realm role for that client.",
+      "description": "Deny if user lacks realm role n8n-dev-login (granted via n8n-admin or n8n-member composites). Negated role condition plus Deny access.",
       "providerId": "basic-flow",
       "topLevel": false,
       "builtIn": false,
@@ -1723,7 +1723,7 @@
     {
       "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e02",
       "alias": "n8n-dev - authenticate",
-      "description": "Mirrors the standard browser authentication alternatives (cookie, IdP, forms) without the role gate. Used as the first REQUIRED subflow of n8n-dev browser so the role check runs after any successful auth path including SSO cookie.",
+      "description": "Standard browser alternatives (cookie, IdP, forms) without the role gate; first REQUIRED step so the role check still runs after SSO cookie.",
       "providerId": "basic-flow",
       "topLevel": false,
       "builtIn": false,
@@ -1773,7 +1773,7 @@
     {
       "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e03",
       "alias": "n8n-dev browser",
-      "description": "Browser flow for OIDC client n8n-dev: REQUIRED authentication subflow then CONDITIONAL role gate so cookie/IdP/password logins are all checked for n8n-dev-login before completing.",
+      "description": "n8n-dev OIDC browser: REQUIRED auth subflow, then CONDITIONAL n8n-dev-login gate (cookie, IdP, and password paths).",
       "providerId": "basic-flow",
       "topLevel": true,
       "builtIn": false,
@@ -1799,7 +1799,7 @@
     {
       "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e04",
       "alias": "n8n-dev direct grant",
-      "description": "Direct grant flow for n8n-dev: same as direct grant with role gate after password (and optional OTP).",
+      "description": "n8n-dev direct grant with role gate after password and optional OTP.",
       "providerId": "basic-flow",
       "topLevel": true,
       "builtIn": false,
