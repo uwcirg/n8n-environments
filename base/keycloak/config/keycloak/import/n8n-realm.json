@@ -56,39 +56,6 @@
   "roles": {
     "realm": [
       {
-        "id": "fa691987-aaeb-4c06-afcc-bb21cdfa956b",
-        "name": "default-roles-n8n",
-        "description": "${role_default-roles}",
-        "composite": true,
-        "composites": {
-          "realm": [
-            "offline_access",
-            "uma_authorization"
-          ]
-        },
-        "clientRole": false,
-        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
-        "attributes": {}
-      },
-      {
-        "id": "e2851795-5481-4418-b818-d8ea6234d8ee",
-        "name": "offline_access",
-        "description": "${role_offline-access}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
-        "attributes": {}
-      },
-      {
-        "id": "62681eea-9d7e-4108-b9e9-e0fc7de7f0e6",
-        "name": "uma_authorization",
-        "description": "${role_uma_authorization}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
-        "attributes": {}
-      },
-      {
         "id": "e5f1a2b3-c4d5-46e7-f8a9-b0c1d2e3f4a5",
         "name": "patient-realm-role",
         "description": "Sample realm role for demo users",
