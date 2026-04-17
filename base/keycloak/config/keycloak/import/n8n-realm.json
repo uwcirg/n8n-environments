@@ -56,11 +56,23 @@
   "roles": {
     "realm": [
       {
+        "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e07",
+        "name": "n8n-dev-login",
+        "description": "Granted via composites from n8n-admin or n8n-member; used by client-bound auth flows to allow OIDC for client n8n-dev only when one of those roles is held.",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6a1c2df6-94e5-4f2f-83fd-5fc4566b758f",
+        "attributes": {}
+      },
+      {
         "id": "a1b7c8d9-e0f1-42a3-b4c5-d6e7f8a9b0c1",
         "name": "n8n-admin",
         "description": "n8n instance admin; grants client role global:admin on n8n-instance-role (for OIDC n8n_instance_role)",
         "composite": true,
         "composites": {
+          "realm": [
+            "n8n-dev-login"
+          ],
           "client": {
             "n8n-instance-role": [
               "global:admin"
@@ -77,6 +89,9 @@
         "description": "n8n instance member; grants client role global:member on n8n-instance-role (for OIDC n8n_instance_role)",
         "composite": true,
         "composites": {
+          "realm": [
+            "n8n-dev-login"
+          ],
           "client": {
             "n8n-instance-role": [
               "global:member"
@@ -202,7 +217,10 @@
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
-      "authenticationFlowBindingOverrides": {},
+      "authenticationFlowBindingOverrides": {
+        "browser": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e03",
+        "direct_grant": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e04"
+      },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
@@ -1657,6 +1675,152 @@
       ]
     },
     {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e01",
+      "alias": "n8n-dev - required login role",
+      "description": "Deny if user lacks realm role n8n-dev-login (granted via n8n-admin or n8n-member composites). Negated role condition plus Deny access.",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticatorConfig": "n8n-dev-login role condition",
+          "authenticator": "conditional-user-role",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorConfig": "n8n-dev-login deny access message",
+          "authenticator": "deny-access-authenticator",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e02",
+      "alias": "n8n-dev - authenticate",
+      "description": "Standard browser alternatives (cookie, IdP, forms) without the role gate; first REQUIRED step so the role check still runs after SSO cookie.",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "auth-cookie",
+          "authenticatorFlow": false,
+          "requirement": "ALTERNATIVE",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "auth-spnego",
+          "authenticatorFlow": false,
+          "requirement": "DISABLED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "identity-provider-redirector",
+          "authenticatorFlow": false,
+          "requirement": "ALTERNATIVE",
+          "priority": 25,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "ALTERNATIVE",
+          "priority": 26,
+          "autheticatorFlow": true,
+          "flowAlias": "Organization",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "ALTERNATIVE",
+          "priority": 30,
+          "autheticatorFlow": true,
+          "flowAlias": "forms",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e03",
+      "alias": "n8n-dev browser",
+      "description": "n8n-dev OIDC browser: REQUIRED auth subflow, then CONDITIONAL n8n-dev-login gate (cookie, IdP, and password paths).",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticatorFlow": true,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": true,
+          "flowAlias": "n8n-dev - authenticate",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "CONDITIONAL",
+          "priority": 20,
+          "autheticatorFlow": true,
+          "flowAlias": "n8n-dev - required login role",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e04",
+      "alias": "n8n-dev direct grant",
+      "description": "n8n-dev direct grant with role gate after password and optional OTP.",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "direct-grant-validate-username",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "direct-grant-validate-password",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "CONDITIONAL",
+          "priority": 30,
+          "autheticatorFlow": true,
+          "flowAlias": "Direct Grant - Conditional OTP",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "CONDITIONAL",
+          "priority": 40,
+          "autheticatorFlow": true,
+          "flowAlias": "n8n-dev - required login role",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
       "id": "cdcd8ab6-5211-4983-8882-d3582d99e490",
       "alias": "registration",
       "description": "Registration flow",
@@ -1791,6 +1955,21 @@
       "alias": "review profile config",
       "config": {
         "update.profile.on.first.login": "missing"
+      }
+    },
+    {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e05",
+      "alias": "n8n-dev-login role condition",
+      "config": {
+        "condUserRole": "n8n-dev-login",
+        "negate": "true"
+      }
+    },
+    {
+      "id": "c4d8e9f0-a1b2-4c3d-8e7f-0a1b2c3d4e06",
+      "alias": "n8n-dev-login deny access message",
+      "config": {
+        "denyErrorMessage": "You do not have access to n8n"
       }
     }
   ],
