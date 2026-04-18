@@ -25,7 +25,7 @@
       "requiredActions": [],
       "realmRoles": [
         "default-roles-n8n",
-        "patient-realm-role"
+        "n8n-member"
       ],
       "notBefore": 0,
       "groups": []
@@ -54,7 +54,7 @@
       "requiredActions": [],
       "realmRoles": [
         "default-roles-n8n",
-        "staff-realm-role"
+        "n8n-admin"
       ],
       "notBefore": 0,
       "groups": []
