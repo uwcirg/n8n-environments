@@ -1037,7 +1037,7 @@
       "storeToken": true,
       "addReadTokenRoleOnCreate": true,
       "authenticateByDefault": false,
-      "linkOnly": true,
+      "linkOnly": false,
       "hideOnLogin": false,
       "config": {
         "tokenUrl": "https://cilogon.org/oauth2/token",
