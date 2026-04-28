@@ -2,10 +2,15 @@ services:
   jupyterhub:
     image: jupyterhub/jupyterhub:latest
     restart: unless-stopped
+    command:
+      - jupyterhub
+      - -f
+      - /srv/jupyterhub/jupyterhub_config.py
     expose:
       - 8000
     volumes:
       - jupyterhub_data:/srv/jupyterhub
+      - ./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro
 
 volumes:
   jupyterhub_data:
