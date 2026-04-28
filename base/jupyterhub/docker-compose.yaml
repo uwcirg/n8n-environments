@@ -3,7 +3,8 @@ services:
     image: jupyterhub/jupyterhub:latest
     restart: unless-stopped
     command: >
-      /bin/sh -c "python -c 'import jupyter_server' || pip install --no-cache-dir jupyterlab;
+      /bin/sh -c "python -c 'import jupyter_server' && python -c 'import oauthenticator'
+      || pip install --no-cache-dir jupyterlab oauthenticator;
       exec jupyterhub -f /srv/jupyterhub/jupyterhub_config.py"
     expose:
       - 8000

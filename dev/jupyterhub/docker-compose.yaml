@@ -3,6 +3,9 @@ services:
     extends:
       file: ../../base/jupyterhub/docker-compose.yaml
       service: jupyterhub
+    env_file:
+      - path: jupyterhub.env
+        required: true
     labels:
       - traefik.enable=true
       - traefik.http.routers.jupyterhub.rule=Host(`jupyterhub.${BASE_DOMAIN}`)
