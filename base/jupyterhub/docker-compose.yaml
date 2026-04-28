@@ -2,10 +2,9 @@ services:
   jupyterhub:
     image: jupyterhub/jupyterhub:latest
     restart: unless-stopped
-    command:
-      - jupyterhub
-      - -f
-      - /srv/jupyterhub/jupyterhub_config.py
+    command: >
+      /bin/sh -c "python -c 'import jupyter_server' || pip install --no-cache-dir jupyterlab;
+      exec jupyterhub -f /srv/jupyterhub/jupyterhub_config.py"
     expose:
       - 8000
     volumes:
