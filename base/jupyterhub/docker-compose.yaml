@@ -1,0 +1,18 @@
+services:
+  jupyterhub:
+    image: jupyterhub/jupyterhub:latest
+    restart: unless-stopped
+    expose:
+      - 8000
+    volumes:
+      - jupyterhub_data:/srv/jupyterhub
+
+volumes:
+  jupyterhub_data:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web

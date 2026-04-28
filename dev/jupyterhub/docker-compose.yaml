@@ -1,0 +1,25 @@
+services:
+  jupyterhub:
+    extends:
+      file: ../../base/jupyterhub/docker-compose.yaml
+      service: jupyterhub
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jupyterhub.rule=Host(`jupyterhub.${BASE_DOMAIN}`)
+      - traefik.http.routers.jupyterhub.entrypoints=websecure
+      - traefik.http.routers.jupyterhub.tls=true
+      - traefik.http.routers.jupyterhub.tls.certresolver=letsencrypt
+      - traefik.http.services.jupyterhub.loadbalancer.server.port=8000
+    networks:
+      - ingress
+      - internal
+
+volumes:
+  jupyterhub_data:
+
+networks:
+  internal:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
