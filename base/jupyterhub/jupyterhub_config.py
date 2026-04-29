@@ -1,8 +1,21 @@
 import os
 
+from jupyterhub.spawner import SimpleLocalProcessSpawner
 from oauthenticator.generic import GenericOAuthenticator
 
-c.JupyterHub.authenticator_class = GenericOAuthenticator
+
+class KeycloakOAuthenticator(GenericOAuthenticator):
+    """Map Keycloak-style identities to Hub usernames valid for local process use."""
+
+    def normalize_username(self, username):
+        username = super().normalize_username(username)
+        if "@" in username:
+            username = username.split("@", 1)[0]
+        return username
+
+
+c.JupyterHub.authenticator_class = KeycloakOAuthenticator
+c.JupyterHub.spawner_class = SimpleLocalProcessSpawner
 c.Authenticator.allow_all = True
 c.Authenticator.auto_login = True
 
