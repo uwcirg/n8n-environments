@@ -16,6 +16,7 @@ class KeycloakOAuthenticator(GenericOAuthenticator):
 
 c.JupyterHub.authenticator_class = KeycloakOAuthenticator
 c.JupyterHub.spawner_class = SimpleLocalProcessSpawner
+c.Spawner.args = ["--allow-root"]
 c.Authenticator.allow_all = True
 c.Authenticator.auto_login = True
 
