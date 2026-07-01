@@ -1,0 +1,6 @@
+services:
+  task-runners:
+    image: n8nio/runners:${RUNNERS_IMAGE_TAG:-2.29.2}
+    restart: unless-stopped
+    volumes:
+      - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro

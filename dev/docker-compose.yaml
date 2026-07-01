@@ -28,6 +28,9 @@ services:
     env_file:
       - path: n8n.env
         required: true
+    ports:
+      # required for external task runner communication
+      - 5679:5679
     volumes:
       - ./shared:/home/node/.n8n-files
   qdrant:

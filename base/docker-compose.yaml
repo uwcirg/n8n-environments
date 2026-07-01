@@ -29,6 +29,12 @@ x-n8n: &service-n8n
     # TODO: Also need to `npm install pdf-lib`
     NODE_FUNCTION_ALLOW_EXTERNAL: pdf-lib
 
+    # external task runners (broker on n8n; runners deployed separately)
+    N8N_RUNNERS_ENABLED: true
+    N8N_RUNNERS_MODE: external
+    N8N_RUNNERS_BROKER_LISTEN_ADDRESS: 0.0.0.0
+    N8N_NATIVE_PYTHON_RUNNER: true
+
     # disable telemetry etc
     N8N_DIAGNOSTICS_ENABLED: false
     N8N_VERSION_NOTIFICATIONS_ENABLED: false
