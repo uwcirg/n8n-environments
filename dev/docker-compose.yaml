@@ -28,6 +28,8 @@ services:
     env_file:
       - path: n8n.env
         required: true
+    ports:
+      - "5679:5679"
     volumes:
       - ./shared:/home/node/.n8n-files
   qdrant:
