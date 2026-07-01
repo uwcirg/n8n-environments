@@ -6,7 +6,7 @@ Deploys [external-mode](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up
 
 - The n8n host is deployed with external task runners enabled (see [dev/README.md](../README.md#task-runners)).
 - DNS for `n8n-runners.<BASE_DOMAIN>` resolves to the n8n host (not Traefik).
-- The runner host can reach the n8n host on **5679/tcp** (direct broker port, not via Traefik).
+- The runner host can reach the n8n host on **5679/tcp** (direct broker port, not via Traefik). The n8n host must allow inbound 5679 in its firewall; see [dev/README.md § Firewall](../README.md#firewall).
 - `N8N_RUNNERS_AUTH_TOKEN` matches the value in `n8n.env` on the n8n host.
 
 ## Setup
@@ -39,7 +39,7 @@ docker compose up --pull always --detach
 
 ## Broker access
 
-The task broker listens on port **5679** inside the n8n container and is published on the n8n host as `5679:5679`, bypassing Traefik entirely. Restrict host port 5679 to runner host(s) via firewall.
+The task broker listens on port **5679** inside the n8n container and is published on the n8n host as `5679:5679`, bypassing Traefik entirely. On the n8n host, allow inbound 5679/tcp in iptables (or equivalent); see [dev/README.md § Firewall](../README.md#firewall).
 
 The `n8nio/runners` launcher connects with a plaintext `ws://` WebSocket upgrade, so the broker URI must be `http://` (not `https://`):
 
