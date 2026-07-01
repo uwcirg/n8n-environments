@@ -4,5 +4,5 @@ services:
       file: ../../base/task-runners/docker-compose.yaml
       service: task-runners
     env_file:
-      - path: ../task-runners.env
+      - path: task-runners.env
         required: true

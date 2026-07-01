@@ -10,19 +10,14 @@ Deploys [external-mode](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up
 
 ## Setup
 
-From the repository `dev/` directory, copy the task-runners env template:
+From this directory (`dev/task-runners/`), copy the env templates:
 
 ```bash
 cp task-runners.env.default task-runners.env
-```
-
-From this directory (`dev/task-runners/`), copy the compose env template:
-
-```bash
 cp default.env .env
 ```
 
-Edit `../task-runners.env`:
+Edit `task-runners.env`:
 
 - Set `N8N_RUNNERS_AUTH_TOKEN` to the same secret as on the n8n host.
 - Set `N8N_RUNNERS_TASK_BROKER_URI` to `https://n8n-runners.<BASE_DOMAIN>` (Traefik URL, not a raw `:5679` address).
