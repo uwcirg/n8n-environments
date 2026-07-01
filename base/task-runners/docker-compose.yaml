@@ -1,4 +1,4 @@
 services:
   task-runners:
-    image: n8nio/runners:${RUNNERS_IMAGE_TAG}
+    image: n8nio/runners:${RUNNERS_IMAGE_TAG:-2.29.2}
     restart: unless-stopped
