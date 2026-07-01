@@ -60,6 +60,20 @@ After deploy, logs should show a successful WebSocket connection:
 Connected: ws://n8n-runners.<BASE_DOMAIN>:5679/runners/_ws?id=...
 ```
 
+## Python stdlib allowlist
+
+Python stdlib modules allowed in the Code node are configured in [`base/task-runners/n8n-task-runners.json`](../../base/task-runners/n8n-task-runners.json) via `N8N_RUNNERS_STDLIB_ALLOW`.
+
+Current allowlist: `json`, `math`, `datetime`, `random`, `re`, `statistics`, `decimal`, `base64`, `io`.
+
+After editing the config, recreate the runner container:
+
+```bash
+docker compose up --pull always --detach --force-recreate
+```
+
+When bumping `RUNNERS_IMAGE_TAG`, diff against the upstream `n8n-task-runners.json` in the matching n8n release to pick up any structural changes.
+
 ## Optional
 
 - `N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT` — seconds of inactivity before the runner shuts down (default `15` in the runners image; set to `0` to disable).
