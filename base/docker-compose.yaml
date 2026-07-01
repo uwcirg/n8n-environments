@@ -113,8 +113,6 @@ services:
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.tls=true
       - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-      - traefik.http.routers.n8n-${COMPOSE_PROJECT_NAME}.service=n8n-${COMPOSE_PROJECT_NAME}
-      - traefik.http.services.n8n-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=5678
     networks:
       - ingress
       - internal
