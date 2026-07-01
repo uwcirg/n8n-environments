@@ -43,3 +43,5 @@ The runner host needs HTTPS egress to the Traefik ingress (port 443).
 - `N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT` — seconds of inactivity before the runner shuts down (default `15` in the runners image; set to `0` to disable).
 
 If the broker hostname is routed to the wrong port after deploy, see the multi-port caveat in the n8n host configuration.
+
+**Note:** `https://n8n-runners.<BASE_DOMAIN>/` in a browser will not show a web UI — it is a WebSocket task broker endpoint for runners only. A `Cannot GET /` response there is expected.
