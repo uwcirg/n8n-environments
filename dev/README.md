@@ -25,3 +25,15 @@ To use a CPU-based version of ollama, run the following command:
 To use an nvidia GPU-based version of ollama, run the following command:
 
     docker compose --profile gpu-nvidia up --pull always --detach
+
+## Task Runners
+
+External task runners execute Code node JavaScript/Python in isolated `n8nio/runners` containers. See the [n8n task runner docs](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-task-runners).
+
+**n8n host** (this directory):
+
+1. Add `N8N_RUNNERS_AUTH_TOKEN` to `n8n.env` (copy from `n8n.env.default` if needed).
+2. Ensure DNS for `n8n-runners.${BASE_DOMAIN}` resolves to Traefik (same as `n8n.${BASE_DOMAIN}`).
+3. Redeploy: `docker compose up --pull always --detach`
+
+**Runner host** (separate machine): see [task-runners/README.md](./task-runners/README.md).
