@@ -1,6 +1,6 @@
 services:
   task-runners:
-    image: n8nio/runners:${RUNNERS_IMAGE_TAG:-2.29.2}
+    image: ghcr.io/uwcirg/n8n-builder:${RUNNERS_IMAGE_TAG:-runner-main}
     restart: unless-stopped
     volumes:
       - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro

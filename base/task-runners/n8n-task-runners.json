@@ -49,7 +49,7 @@
       ],
       "env-overrides": {
         "N8N_RUNNERS_STDLIB_ALLOW": "json,math,datetime,random,re,statistics,decimal,base64,io",
-        "N8N_RUNNERS_EXTERNAL_ALLOW": ""
+        "N8N_RUNNERS_EXTERNAL_ALLOW": "pypdfium2,pillow"
       }
     }
   ]
